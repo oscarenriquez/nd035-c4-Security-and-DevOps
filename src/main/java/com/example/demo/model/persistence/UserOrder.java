@@ -17,12 +17,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 import lombok.Data;
 
 
 @Entity
 @Table(name = "user_order")
 @Data
+@Builder
 public class UserOrder {
 
 	@Id
@@ -46,10 +48,11 @@ public class UserOrder {
 	private BigDecimal total;
 
 	public static UserOrder createFromCart(Cart cart) {
-		UserOrder order = new UserOrder();
-		order.setItems(cart.getItems().stream().collect(Collectors.toList()));
-		order.setTotal(cart.getTotal());
-		order.setUser(cart.getUser());
+		UserOrder order = UserOrder.builder()
+				.items(cart.getItems().stream().collect(Collectors.toList()))
+				.total(cart.getTotal())
+				.user(cart.getUser())
+				.build();
 		return order;
 	}
 	

@@ -17,12 +17,14 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 import lombok.Data;
 
 
 @Entity
 @Table(name = "cart")
 @Data
+@Builder
 public class Cart {
 	
 	@Id
