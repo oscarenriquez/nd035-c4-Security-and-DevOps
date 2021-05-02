@@ -1,1 +1,21 @@
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+
+# IDE Files #
+.classpath
+.project
+.settings/
 .idea/
+*.iml
+
+dist
+build
+bin
+/.metadata
+
+
+.DS_Store
+.tmp/
