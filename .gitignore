@@ -11,9 +11,10 @@
 .idea/
 *.iml
 
-dist
-build
-bin
+/dist
+/build
+/bin
+/target
 /.metadata
 
 
