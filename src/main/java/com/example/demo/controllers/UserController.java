@@ -19,9 +19,12 @@ import com.example.demo.model.persistence.User;
 import com.example.demo.model.persistence.repositories.CartRepository;
 import com.example.demo.model.persistence.repositories.UserRepository;
 import com.example.demo.model.requests.CreateUserRequest;
+import lombok.extern.slf4j.Slf4j;
+
 
 @RestController
 @RequestMapping("/api/user")
+@Slf4j
 public class UserController {
 	
 	@Autowired
@@ -40,6 +43,7 @@ public class UserController {
 	
 	@GetMapping("/{username}")
 	public ResponseEntity<User> findByUserName(@PathVariable String username) {
+		log.info("Getting user by name {}", username);
 		User user = userRepository.findByUsername(username);
 		return user == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(user);
 	}
@@ -47,6 +51,7 @@ public class UserController {
 	@PostMapping("/create")
 	public ResponseEntity<User> createUser(@RequestBody CreateUserRequest createUserRequest) {
 		try {
+			log.info("Create user by name {}", createUserRequest.getUsername());
 			User user = User.builder().build();
 			validateCreateUserRequest(createUserRequest, user);
 			user.setUsername(createUserRequest.getUsername());
@@ -56,6 +61,7 @@ public class UserController {
 			userRepository.save(user);
 			return ResponseEntity.ok(user);
 		} catch (Exception e) {
+			log.error("Error by creating a new user", e);
 			return ResponseEntity.badRequest().build();
 		}
 	}
